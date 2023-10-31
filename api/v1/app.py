@@ -4,7 +4,7 @@
 """
 
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
 from models import storage
 from api.v1.views import app_views
 from os import getenv
@@ -21,10 +21,8 @@ def teardown_appocontext(exc):
 
 
 @app.errorhandler(404)
-def page_not_found():
-    return jsonify({
-                    "error": "Not found"
-                    })
+def page_not_found(error):
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == "__main__":
